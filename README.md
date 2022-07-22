@@ -18,6 +18,37 @@ DriverData                     C:\Windows\System32\Drivers\DriverData
 HOMEDRIVE                      C:
 ```
 
+## 特定の環境変数を確認
+
+```
+Get-ChildItem env:TMP
+
+Name                           Value
+----                           -----
+TMP                            C:\Users\nagar\AppData\Local\Temp
+```
+
+## 環境変数Pathを確認
+
+```
+$ $env:Path
+C:\Program Files\PowerShell\7;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\HashiCorp\Vagrant\bin;C:\Program Files (x86)\dotnet\;C:\Users\nagar\.cargo\bin;C:\Users\nagar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\nagar\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Bandizip\;C:\Users\nagar\.dotnet\tools;C:\Program Files\OpenSSH;
+```
+
+## ```C:\path\to\test```をPathの先頭に追加
+
+```
+$ $env:Path = "C:\path\to\test;" + $env:Path
+$ $env:Path
+C:\path\to\test;C:\Program Files\PowerShell\7;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;
+```
+
+## 銭湯に追加した```C:\path\to\test```をPathから削除
+
+```
+
+```
+
 ## 環境変数を設定
 
 ```
