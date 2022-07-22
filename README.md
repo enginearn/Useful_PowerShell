@@ -43,7 +43,7 @@ $ $env:Path
 C:\path\to\test;C:\Program Files\PowerShell\7;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;
 ```
 
-## 銭湯に追加した```C:\path\to\test```をPathから削除
+## 先頭に追加した```C:\path\to\test```をPathから削除
 
 ```
 
