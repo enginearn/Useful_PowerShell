@@ -8,7 +8,7 @@ $ Get-ChildItem env:
 Name                           Value
 ----                           -----
 ALLUSERSPROFILE                C:\ProgramData
-APPDATA                        C:\Users\nagar\AppData\Roaming
+APPDATA                        C:\Users\path\to\AppData\Roaming
 CommonProgramFiles             C:\Program Files\Common Files
 CommonProgramFiles(x86)        C:\Program Files (x86)\Common Files
 CommonProgramW6432             C:\Program Files\Common Files
@@ -25,14 +25,14 @@ Get-ChildItem env:TMP
 
 Name                           Value
 ----                           -----
-TMP                            C:\Users\nagar\AppData\Local\Temp
+TMP                            C:\Users\path	o\\AppData\Local\Temp
 ```
 
 ## 環境変数Pathを確認
 
 ```
 $ $env:Path
-C:\Program Files\PowerShell\7;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\HashiCorp\Vagrant\bin;C:\Program Files (x86)\dotnet\;C:\Users\nagar\.cargo\bin;C:\Users\nagar\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\nagar\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Bandizip\;C:\Users\nagar\.dotnet\tools;C:\Program Files\OpenSSH;
+C:\Program Files\PowerShell\7;C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin;C:\Program Files\Eclipse Foundation\jdk-8.0.302.8-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\HashiCorp\Vagrant\bin;C:\Program Files (x86)\dotnet\;C:\Users\path	o\\.cargo\bin;C:\Users\path	o\\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\path	o\\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Bandizip\;C:\Users\path	o\\.dotnet\tools;C:\Program Files\OpenSSH;
 ```
 
 ## ```C:\path\to\test```をPathの先頭に追加
@@ -122,6 +122,72 @@ $ Get-Process | Out-File -FilePath C:\to\your\path\PowerShell\processlist.txt
 $ # ファイル出力したので、なにも返ってこない
 
 # encodingを指定
-$ Get-Process | Out-File -FilePath C:\Users\nagar\Development\PowerShell\processlist_encoded.txt -Encoding ASCII
+$ Get-Process | Out-File -FilePath C:\Users\path\to\Development\PowerShell\processlist_encoded.txt -Encoding ASCII
 $ # ファイル出力したので、なにも返ってこない
 ```
+
+## Alias登録して`.ps1`を実行
+
+<details>
+<summary>Alias登録</summary>
+
+``` PowerShell
+
+# スクリプト実行が許可されていなければ許可する
+if((Get-ExecutionPolicy -Scope LocalMachine) -ne "RemoteSigned"){Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force}
+# Profile が無ければ作成
+if(-not (Test-Path $PROFILE)){New-Item $PROFILE -Type File -Force}
+# メモ帳で Profile を開く
+notepad $PROFILE
+```
+
+</details>
+
+<details>
+<summary>Microsoft.PowerShell_profile.ps1</summary>
+
+``` Microsoft.PowerShell_profile.ps1
+Set-Alias PrepareDevEnv "C:\Users\path\to\Development\PowerShell\prepare_dev_env.ps1"
+```
+
+``` PowerShell
+> PrepareDevEnv
+Enter the directory name: : test
+Enter the Programming lang: : python
+C:\Users\path\to\Development
+
+        Directory: C:\Users\path\to\Development
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d----        2022/07/23     15:47                  test
+Directory created
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3298  100  3298    0     0  11636      0 --:--:-- --:--:-- --:--:-- 11695
+.gitignore file created
+
+        Directory: C:\Users\path\to\Development\test
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a---        2022/07/23     15:47              0   README.md
+README.md file created
+
+  path\to\2022-07-23 15:47:08  ~/Development/test  ﲍ 
+➜ ls
+
+        Directory: C:\Users\path\to\Development\test
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a---        2022/07/23     15:47           3298   .gitignore
+-a---        2022/07/23     15:47              0   README.md
+
+  path\to\2022-07-23 15:47:13  ~/Development/test  ﲍ 
+```
+
+</details>

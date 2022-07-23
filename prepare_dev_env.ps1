@@ -1,5 +1,5 @@
-$DirName = Read-Host "Enter the directory name: "
-$PG_Lang = Read-Host "Enter the Programming lang: "
+$DirName = Read-Host "Enter the directory name"
+$PG_Lang = Read-Host "Enter the Programming lang"
 $CurrentPath = Get-Location
 Write-Host $CurrentPath
 
